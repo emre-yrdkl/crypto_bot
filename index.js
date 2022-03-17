@@ -1,0 +1,194 @@
+const { Spot } = require('@binance/connector')
+
+const apiKey = 'l7Ur03g8LDLPANSEODw8rA0GNpzsWLI5mNXhHwaXvv0lwgSvFYIBxnFO6iwI3aFe';
+const apiSecret = '79OfMv6DZ0qRS7cShUyLKo2QpTVtNBtzO69Ejrkiu0lHY29PZAA0ZkdSrnzHydVJ';
+const client = new Spot(apiKey, apiSecret);
+
+const CoinGecko = require('coingecko-api');
+
+//2. Initiate the CoinGecko API Client
+const CoinGeckoClient = new CoinGecko();
+
+var nodemailer = require('nodemailer');
+
+
+
+
+// Get account information
+//client.account().then(response => client.logger.log(response.data))
+
+// Place a new order
+/*client.newOrder('DOGETRY', 'BUY', 'LIMIT', {
+  price: '1.8',
+  quantity: 10,
+  timeInForce: 'GTC'
+}).then(response => client.logger.log(response.data))
+  .catch(error => client.logger.error(error))*/
+
+  var bool = false;
+
+  var profit= [];
+
+  var data3Min = [];
+
+  var color = [];
+
+  var buyPrice= [];
+  
+  var count = 4;
+
+  var refreshV;
+
+  
+  var transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+      user: 'botsoybot06@gmail.com',
+      pass: 'Bot0soybot!'
+    }
+  });
+
+
+  function sellFunc(a){
+    console.log("sell calisti");
+//sell request
+    if(buyPrice.length==4){
+      bool=false;
+    }
+
+    buyPrice.splice(a,1);
+    if(buyPrice.length==0){
+      clearInterval(refreshV);
+    }
+    count++;
+
+  }
+
+  function buyFunc(){
+
+      if(color[color.length-1]=="Y"){
+
+        count -= 1;
+        
+        var mailOptions = {
+          from: 'botsoybot06@gmail.com',
+          to: 'egemenalicaner74@hotmail.com, emreyurdakul24@gmail.com',
+          subject: 'CRYPTO BOT - BUY(4,5|emre)',
+          text: "BUYING PRICE: "+ data3Min[data3Min.length-1].toString() + "\n" + "REMAIN BULLET NUMBER: " + count.toString()
+        };
+        
+        transporter.sendMail(mailOptions, function(error, info){
+          if (error) {
+            console.log(error);
+          } else {
+            console.log('Email sent: ' + info.response);
+          }
+        });
+
+
+
+        console.log("buy calisti");
+        bool = false;
+        buyPrice.push(data3Min[data3Min.length-1]);
+        refreshV = setInterval(getData3Sec, 2000);
+      }
+  }
+
+  function compare(){
+
+    if(data3Min.length>1){
+
+      if(data3Min[data3Min.length-1] < data3Min[data3Min.length-2]){
+        color.push("K");
+      }
+      else{
+        color.push("Y");
+      }      
+    }
+
+    if(color.length > 1){
+
+      if(color[color.length-1] == "K" && color[color.length-2] == "K"){
+        
+        bool = true;
+
+      }
+      if(bool){
+        if(count > 0){
+          buyFunc();
+        }
+        
+      }
+      if(color.length > 5){
+        color.shift();
+      }
+    }
+
+  }
+
+
+  function getData3Min() {
+
+    got('https://api.binance.com/api/v3/ticker/price?symbol=DOGEUSDT', { json: true }).then(response => {
+    //console.log(response.body.data.prices[1].price);
+    b = response.body.price;
+    var num = parseFloat(b);
+
+    data3Min.push(num);
+    console.log(bool);
+    compare();
+    
+    if(data3Min.length > 5){
+      data3Min.shift();
+    }
+    console.log("data : ",data3Min);
+    console.log("color: ",color);
+    
+
+  }).catch(error => {
+    console.log("error.response.body");
+  })
+  }
+
+  function getData3Sec() {
+
+    got('https://api.binance.com/api/v3/ticker/price?symbol=DOGEUSDT', { json: true }).then(response => {
+    //console.log(response.body.data.prices[1].price);
+    a = response.body.price;
+    var num = parseFloat(a);
+    var profitNum = num*10000/10055
+
+    for(var i=0; i < buyPrice.length; i++){
+
+      if(buyPrice[i] <= profitNum){
+        
+        var mailOptions2 = {
+          from: 'botsoybot06@gmail.com',
+          to: 'egemenalicaner74@hotmail.com, emreyurdakul24@gmail.com',
+          subject: 'CRYPTO BOT - SELL(5,5)(emre)',
+          text: "PROFIT: "+ ((num/buyPrice[i]-1)*1000).toString() 
+        };
+        transporter.sendMail(mailOptions2, function(error, info){
+          if (error) {
+            console.log(error);
+          } else {
+            console.log('Email sent: ' + info.response);
+          }
+        });
+        profit.push(num/buyPrice[i]);
+        console.log("profit: ",profit);
+        sellFunc(i);
+      }
+    }
+
+  }).catch(error => {
+    console.log("error.response.body");
+  })
+  }
+
+  const got = require('got');
+
+  var refreshIntervalId = setInterval(getData3Min, 180000);
+
+  //clearInterval(refreshIntervalId);
+  

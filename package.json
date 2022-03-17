@@ -1,0 +1,10 @@
+{
+  "dependencies": {
+    "@binance/connector": "^1.8.1",
+    "@sendgrid/mail": "^7.6.2",
+    "axios": "^0.21.1",
+    "coingecko-api": "^1.0.10",
+    "got": "^7.1.0",
+    "nodemailer": "^6.7.2"
+  }
+}
