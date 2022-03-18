@@ -39,6 +39,14 @@ var nodemailer = require('nodemailer');
 
   var refreshV;
 
+  function sleep(milliseconds) {
+    const date = Date.now();
+    let currentDate = null;
+    do {
+      currentDate = Date.now();
+    } while (currentDate - date < milliseconds);
+  }
+
   
   var transporter = nodemailer.createTransport({
     service: 'gmail',
@@ -98,6 +106,11 @@ var nodemailer = require('nodemailer');
   }
 
   function compare(){
+
+    if(data3Min[4]/data3Min[3] >= 1008/1000 || data3Min[4]/data3Min[2] >= 1008/1000 || data3Min[4]/data3Min[1] >= 1008/1000 || data3Min[4]/data3Min[0] >= 1008/1000){
+      
+      sleep(180000);
+    }
 
     if(data3Min.length>1){
 
