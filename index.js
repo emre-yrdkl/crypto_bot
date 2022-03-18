@@ -172,7 +172,7 @@ var nodemailer = require('nodemailer');
     //console.log(response.body.data.prices[1].price);
     a = response.body.price;
     var num = parseFloat(a);
-    var profitNum = num*10000/10010
+    var profitNum = num*10000/10045
     console.log("3 sec calisiyor");
 
     for(var i=0; i < buyPrice.length; i++){
