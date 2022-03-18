@@ -114,7 +114,7 @@ var nodemailer = require('nodemailer');
 
     if(data3Min.length>1){
 
-      if(data3Min[data3Min.length-1] <= data3Min[data3Min.length-2]){
+      if(data3Min[data3Min.length-1] < data3Min[data3Min.length-2]){
         color.push("K");
       }
       else{
@@ -205,7 +205,7 @@ var nodemailer = require('nodemailer');
 
   const got = require('got');
 
-  var refreshIntervalId = setInterval(getData3Min, 5000);
+  var refreshIntervalId = setInterval(getData3Min, 180000);
 
   //clearInterval(refreshIntervalId);
   
