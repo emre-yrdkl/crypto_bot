@@ -66,7 +66,7 @@ var nodemailer = require('nodemailer');
 
     buyPrice.splice(a,1);
 
-    clearInterval(refreshV);
+    //clearInterval(refreshV);
     
     count++;
 
