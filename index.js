@@ -205,7 +205,7 @@ var nodemailer = require('nodemailer');
 
   const got = require('got');
 
-  var refreshIntervalId = setInterval(getData3Min, 180000);
+  var refreshIntervalId = setInterval(getData3Min, 60000);
 
   //clearInterval(refreshIntervalId);
   
