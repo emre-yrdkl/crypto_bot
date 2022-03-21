@@ -67,7 +67,7 @@ var nodemailer = require('nodemailer');
 
     buyPrice.splice(a,1);
 
-    clearInterval(refreshV);
+    //clearInterval(refreshV);
     
     count++;
 
@@ -173,7 +173,7 @@ var nodemailer = require('nodemailer');
     //console.log(response.body.data.prices[1].price);
     a = response.body.price;
     var num = parseFloat(a);
-    var profitNum = num*10000/10010
+    var profitNum = num*10000/10045
     console.log("3 sec calisiyor");
 
     for(var i=0; i < buyPrice.length; i++){
@@ -206,7 +206,7 @@ var nodemailer = require('nodemailer');
 
   const got = require('got');
 
-  var refreshIntervalId = setInterval(getData3Min, 180000);
+  var refreshIntervalId = setInterval(getData3Min, 60000);
 
   //clearInterval(refreshIntervalId);
   
