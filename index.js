@@ -1,12 +1,11 @@
 const { Spot } = require('@binance/connector')
 
-const apiKey = 'l7Ur03g8LDLPANSEODw8rA0GNpzsWLI5mNXhHwaXvv0lwgSvFYIBxnFO6iwI3aFe';
-const apiSecret = '79OfMv6DZ0qRS7cShUyLKo2QpTVtNBtzO69Ejrkiu0lHY29PZAA0ZkdSrnzHydVJ';
+const apiKey = '';
+const apiSecret = '';
 const client = new Spot(apiKey, apiSecret);
 
 const CoinGecko = require('coingecko-api');
 
-//2. Initiate the CoinGecko API Client
 const CoinGeckoClient = new CoinGecko();
 
 var nodemailer = require('nodemailer');
@@ -59,7 +58,9 @@ var nodemailer = require('nodemailer');
 
   function sellFunc(a){
     console.log("sell calisti");
-//sell request
+
+    //sell request
+
     if(buyPrice.length==4){
       bool=false;
     }
@@ -109,7 +110,7 @@ var nodemailer = require('nodemailer');
 
     if(data3Min[4]/data3Min[3] >= 1008/1000 || data3Min[4]/data3Min[2] >= 1008/1000 || data3Min[4]/data3Min[1] >= 1008/1000 || data3Min[4]/data3Min[0] >= 1008/1000){
       
-      sleep(180000);
+      sleep(180000);//burasi degisebilir, satimda sikinti var
     }
 
     if(data3Min.length>1){
