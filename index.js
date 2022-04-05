@@ -74,8 +74,21 @@ var nodemailer = require('nodemailer');
   }
 
   function buyFunc(){
+      
+      var boolean1=0;
+      for(var i=(color.length-2); i>=0; i--){
+        if(color[i]=="Y" && (data3Min[i]/data3Min[color.length-1])>1004/1000){
+            boolean1=1;
 
+        }
+
+
+      }
       if(color[color.length-1]=="Y"){
+        bool=false;
+      }
+      
+      if(color[color.length-1]=="Y" && boolean1){
 
         count -= 1;
         
@@ -97,7 +110,7 @@ var nodemailer = require('nodemailer');
 
 
         console.log("buy calisti");
-        bool = false;
+        //bool = false;
         if(buyPrice.length==0){
           refreshV = setInterval(getData3Sec, 2000);
         }
@@ -126,6 +139,7 @@ var nodemailer = require('nodemailer');
     if(color.length > 1){
 
       if(color[color.length-1] == "K" && color[color.length-2] == "K"){
+
         
         bool = true;
 
@@ -136,7 +150,7 @@ var nodemailer = require('nodemailer');
         }
         
       }
-      if(color.length > 5){
+      if(color.length > 10){
         color.shift();
       }
     }
@@ -155,7 +169,7 @@ var nodemailer = require('nodemailer');
     console.log(bool);
     compare();
     
-    if(data3Min.length > 5){
+    if(data3Min.length > 10){
       data3Min.shift();
     }
     console.log("data : ",data3Min);
@@ -206,7 +220,7 @@ var nodemailer = require('nodemailer');
 
   const got = require('got');
 
-  var refreshIntervalId = setInterval(getData3Min, 60000);
+  var refreshIntervalId = setInterval(getData3Min, 180000);
 
   //clearInterval(refreshIntervalId);
   
