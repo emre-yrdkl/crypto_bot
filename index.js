@@ -24,19 +24,19 @@ var nodemailer = require('nodemailer');
 }).then(response => client.logger.log(response.data))
   .catch(error => client.logger.error(error))*/
 
-  var bool = false;
+  let bool = false;
 
-  var profit= [];
+  let profit= [];
 
-  var data3Min = [];
+  let data3Min = [];
 
-  var color = [];
+  let color = [];
 
-  var buyPrice= [];
+  let buyPrice= [];
   
-  var count = 4;
+  let count = 4;
 
-  var refreshV;
+  let refreshV;
 
   function sleep(milliseconds) {
     const date = Date.now();
